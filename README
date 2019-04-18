@@ -1,0 +1,33 @@
+nginx
+├── DockerFile                        文件夹 Dockerfile
+│   ├── CentOS-Base.repo              
+│   ├── common_params
+│   │   ├── error_params
+│   │   ├── fastcgi_params
+│   │   ├── fastcgi_params_all
+│   │   ├── fastcgi_params_all.vote
+│   │   ├── proxy_params
+│   │   ├── proxy_params_all
+│   │   ├── status_module
+│   │   └── upstream_params
+│   ├── common_vhosts
+│   │   ├── default_server.conf
+│   │   ├── monitor_web.conf.bak
+│   │   └── status.conf.bak
+│   ├── Dockerfile
+│   ├── localtime
+│   ├── nginx.conf
+│   ├── push.sh
+│   └── redhat.repo
+├── jenkin-nginx                      jenkins 打包使用的Dockerfile
+│   ├── Dockerfile
+│   └── index.html
+├── k8s-yaml                          k8s的nginx的yaml文件 用于发布
+│   ├── configmap-nginx.yaml
+│   ├── deploy-nginx.yaml
+│   ├── docker-registry-secert.yaml
+│   ├── nginx-yaml
+│   │   └── configmap.yaml
+│   └── README
+└── README
+
