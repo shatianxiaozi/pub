@@ -1,0 +1,10 @@
+server {
+    listen       80;
+    server_name monitor.cditv.cn;
+    root  /data/projects/monitor_web;
+
+    access_log off;
+#    access_log logs/monitor_cditv.access.log combinedme;
+#    error_log logs/monitor_cditv.error.log debug;
+#    error_log logs/monitor_cditv.error.log;
+}

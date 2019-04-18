@@ -1,0 +1,3 @@
+jenkin-nginx  #jenkins自动化使用的Dockerfile
+k8s-yaml      #k8s的yaml文件
+DockerFile    #nginx原始的Dockerfile

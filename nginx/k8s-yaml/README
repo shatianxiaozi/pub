@@ -1,0 +1,6 @@
+#docker仓库密匙
+docker-registry-secert.yaml
+#配置nginx 的配置文件
+configmap-nginx.yaml
+#deploy nginx的k8s文件
+deploy-nginx.yaml

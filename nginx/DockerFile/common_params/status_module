@@ -1,0 +1,26 @@
+location /check_status {
+    check_status;
+    auth_basic "Please insert your name";
+    auth_basic_user_file .htpasswd;
+    access_log   off;
+#    allow 127.0.0.1;
+#    allow all;
+}
+
+location /stub_status
+{
+    auth_basic "Please insert your name";
+    auth_basic_user_file .htpasswd;
+    stub_status on;
+    access_log off;
+#    allow 127.0.0.1;
+#    allow all;
+}
+
+#location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$ {
+#    expires      10d;
+#}
+
+#location ~ .*\.(js|css)?$ {
+#    expires      1h;
+#}

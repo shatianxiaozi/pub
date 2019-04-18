@@ -1,0 +1,23 @@
+apiVersion: v1
+data:
+  nginx.conf: |
+   server {
+    listen       8011;
+    server_name  localhost;
+    location / {
+        root   /data/projects/test;
+        index  index.html index.htm index.php;
+        }
+    location ~ \.php$ {
+        fastcgi_pass   php-service:9000;
+        fastcgi_index  index.php;
+        fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        include        fastcgi_params;
+            }
+    access_log  /var/log/nginx/host_access.log;
+    error_log  /var/log/nginx/host_error.log;
+   }
+kind: ConfigMap
+metadata:
+  name: nginx-dev-conf
+  namespace: kube-ops

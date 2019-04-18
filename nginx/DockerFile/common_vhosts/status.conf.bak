@@ -1,0 +1,32 @@
+################################
+###web_status
+##################################
+server {
+    listen       80;
+    server_name  status.mum.site;
+
+    location / {
+        return 403;
+    }
+    location /check_status {
+        check_status;
+        auth_basic "Please insert your name";  
+        auth_basic_user_file .htpasswd;  
+        access_log off;
+        error_log off;
+    }
+
+    location /stub_status {
+        stub_status on;
+        auth_basic "Please insert your name";  
+        auth_basic_user_file .htpasswd;  
+    }
+
+#    location ~ .*\.(php|php5)?mum.site$ {
+#        fastcgi_pass  cluster;
+#        include common_params/fastcgi_params;
+#    }
+
+    access_log off;
+    error_log off;
+}  

@@ -1,0 +1,80 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: nginx-dev
+  namespace: kube-ops
+spec:
+  replicas: 2
+  template:
+    metadata:
+     labels:
+       name: nginx-dev
+    spec:
+     imagePullSecrets:
+     - name: harborsecret
+     containers:
+     - name: nginx-dev
+       image: 10.101.0.216/dev/nginx:t1 
+       volumeMounts:
+#       - name: rmt-nfs-pv
+#         mountPath: "/usr/share/nginx/html"
+       - name: date-config
+         mountPath: /etc/localtime
+       - name: nginx-dev
+         mountPath: /etc/nginx/conf.d/
+         readOnly: true
+       tty: true
+       ports:
+       - containerPort: 80
+       resources:
+         requests:
+           memory: "64Mi"
+           cpu: "250m"
+         limits:
+           memory: "128Mi"
+           cpu: "500m"       
+     volumes:
+#     - name: rmt-nfs-pv
+#       persistentVolumeClaim:
+#         claimName: rmt-nfs-pvc
+     - name: nginx-dev
+       configMap:
+         name: nginx-dev-conf
+     - name: date-config
+       hostPath:
+         path: /etc/localtime
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-dev
+  namespace: kube-ops
+  labels: 
+    name: nginx-dev
+spec:
+  ports:
+  - name: nginx-port
+    port: 80
+    targetPort: 80
+    protocol: TCP
+  - name: nginx-test
+    port: 8011
+    targetPort: 8011
+    protocol: TCP
+  selector: 
+    name: nginx-dev
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: nginx-dev
+  namespace: kube-ops
+spec:
+  rules:
+  - host: cditv.nginx.dev
+    http:
+      paths:
+      - backend:
+          serviceName: nginx-dev
+          servicePort: 8011

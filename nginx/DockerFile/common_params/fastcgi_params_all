@@ -1,0 +1,37 @@
+location = /favicon.ico {
+    root html;
+    log_not_found off;
+    access_log off;
+}
+
+location / {
+    index index.html index.htm index.php default.html default.htm default.php;
+    rewrite ^/$ /index.php;
+    if (!-e $request_filename) {
+        rewrite ^/(.*)$ /index.php last;
+    }
+}
+
+#location ~ ^.+\.php(.*)$ {
+location ~ .*\.(php|php5)?($|/) {
+
+    if ($http_cdn_src_ip != "" ) {
+        set $http-x-fowared-for $http_cdn_src_ip;
+    }
+
+    fastcgi_index index.php;
+    fastcgi_pass  $fastcgi_pass_me;
+#    fastcgi_index $fastcgi_index_me;
+    include common_params/fastcgi_params;
+#    try_files $uri =404;
+}
+
+error_page   500 502 503 504  /50x.html;
+location = /50x.html {
+    root   html;
+}
+
+error_page 404 /errors/404.html;
+location ~ /errors {
+    root   html;
+}
