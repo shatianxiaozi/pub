@@ -1,6 +1,6 @@
 FROM alpine:3.9
 
-MAINTAINER NGINX Docker Maintainers "zhangjian@cditv.tv"
+MAINTAINER ************
 
 COPY nginx-sticky-module /tmp/nginx-sticky-module
 COPY nginx_upstream_check_module /tmp/nginx_upstream_check_module
